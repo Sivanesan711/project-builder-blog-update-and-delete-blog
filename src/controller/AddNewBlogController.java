@@ -29,19 +29,24 @@ public class AddNewBlogController extends HttpServlet {
 		String blogDescription = request.getParameter("message");
 		LocalDate postedOn = LocalDate.now();
 		System.out.println(blogTitle);
-		Blog blog = new Blog();
-	//	blog.setBlogId(++i);
+		Blog blog = new Blog(0, blogTitle, blogDescription, postedOn);
+		blog.setBlogid(++i);
 		blog.setBlogTitle(blogTitle);
-		blog.setBlogDescription(blogDescription);
+		blog.setBlogDescrptn(blogDescription);
 		blog.setPostedOn(postedOn);
 		
 		BlogDaoImpl blogDao = new BlogDaoImpl();
-		blogDao.insertBlog(blog);
+		try {
+			blogDao.insertBlog(blog);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect("allblogs");
-		/*
-		 * RequestDispatcher rd=this.getServletContext().getRequestDispatcher(
-		 * "/WEB-INF/views/blogView.jsp"); rd.forward(request, response);
-		 */
+		
+		/* RequestDispatcher rd=this.getServletContext().getRequestDispatcher(
+		 "/WEB-INF/views/blogView.jsp"); rd.forward(request, response);
+	*/
 		
 	}
 }

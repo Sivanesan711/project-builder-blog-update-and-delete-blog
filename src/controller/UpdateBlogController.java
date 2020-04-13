@@ -29,10 +29,10 @@ public class UpdateBlogController extends HttpServlet {
 		String blogDescription = request.getParameter("message");
 		LocalDate postedOn = LocalDate.now();
 		System.out.println(blogTitle);
-		Blog blog = new Blog();
-		blog.setBlogId(blogId);
+		Blog blog = new Blog(blogId, blogDescription, blogDescription, postedOn);
+		blog.setBlogid(blogId);
 		blog.setBlogTitle(blogTitle);
-		blog.setBlogDescription(blogDescription);
+		blog.setBlogDescrptn(blogDescription);
 		blog.setPostedOn(postedOn);
 		
 		BlogDaoImpl blogDao = new BlogDaoImpl();

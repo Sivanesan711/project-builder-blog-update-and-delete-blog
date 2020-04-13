@@ -24,16 +24,21 @@ public class ViewAllBlogController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("View All Blogs");
-		System.out.println("Getting all blog post");
 		BlogDaoImpl blogDAO = new BlogDaoImpl();
-		List<Blog> listBlog = blogDAO.selectAllBlogs();
-		for(Blog bloglist:listBlog) {
-			System.out.println(bloglist.getBlogId());
-			System.out.println(bloglist.getBlogTitle());
-			System.out.println(bloglist.getBlogDescription());
-			System.out.println(bloglist.getPostedOn());
+		List<Blog> listBlog = null;
+		try {
+			listBlog = blogDAO.selectAllBlogs();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		request.setAttribute("listBlog", listBlog);
+		
+		for(Blog bloglist: listBlog)
+		{
+			System.out.println(bloglist.getBlogid());
+			System.out.println(bloglist.getBlogTitle());
+		}
+		
 		RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/blogView.jsp");
 		rd.forward(request, response);
 	}
